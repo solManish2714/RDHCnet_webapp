@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RDHCNet Crop Disease Detector</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🌿 RDHCNet Crop Disease Detection System</h1>
+    <p>Upload a crop leaf image to detect disease and get prevention guidance.</p>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Predict Disease</button>
+    </form>
+
+    {% if disease %}
+        <div class="result">
+            <h2>🦠 Predicted Disease: {{ disease }}</h2>
+            <h3>Confidence: {{ confidence }}%</h3>
+
+            <h3>🌱 Prevention Measures:</h3>
+            <ul>
+                {% for tip in tips %}
+                    <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>📊 Top Predictions:</h3>
+            <ul>
+                {% for cls, conf in top_preds %}
+                    <li>{{ cls }} — {{ "%.2f"|format(conf) }}%</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="disease-list">
+        <h3>📋 Supported Diseases:</h3>
+        <ul>
+            {% for d in diseases %}
+                <li>{{ d }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
