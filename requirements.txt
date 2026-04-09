@@ -4,3 +4,4 @@ tensorflow
 numpy
 jinja2
 python-multipart
+pillow
